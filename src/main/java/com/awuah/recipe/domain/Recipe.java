@@ -1,7 +1,6 @@
 package com.awuah.recipe.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -44,11 +43,6 @@ public class Recipe {
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
-
-    public void setNotes(Notes notes) {
-        this.notes = notes;
-        notes.setRecipe(this);
-    }
 
     public Recipe addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
