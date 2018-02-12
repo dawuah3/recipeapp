@@ -1,5 +1,7 @@
 package com.awuah.recipe.services;
 
+import com.awuah.recipe.converters.RecipeCommandToRecipe;
+import com.awuah.recipe.converters.RecipeToRecipeCommand;
 import com.awuah.recipe.domain.Recipe;
 import com.awuah.recipe.repositories.RecipeRepository;
 import org.junit.Before;
@@ -20,13 +22,19 @@ public class RecipeServiceImplTest {
     RecipeServiceImpl recipeService;
 
     @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
     RecipeRepository recipeRepository;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
