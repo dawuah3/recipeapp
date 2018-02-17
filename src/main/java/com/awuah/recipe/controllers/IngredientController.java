@@ -1,6 +1,8 @@
 package com.awuah.recipe.controllers;
 
 import com.awuah.recipe.commands.IngredientCommand;
+import com.awuah.recipe.commands.RecipeCommand;
+import com.awuah.recipe.commands.UnitOfMeasureCommand;
 import com.awuah.recipe.services.IngredientService;
 import com.awuah.recipe.services.RecipeService;
 import com.awuah.recipe.services.UnitOfMeasureService;
@@ -42,6 +44,24 @@ public class IngredientController {
 
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model) {
+
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        //todo raise exception if null
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping

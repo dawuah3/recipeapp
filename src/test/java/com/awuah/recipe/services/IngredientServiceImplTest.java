@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
@@ -26,6 +27,9 @@ public class IngredientServiceImplTest {
 
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
+
+    @Mock
+    private EntityManager entityManager;
 
     @Mock
     RecipeRepository recipeRepository;
@@ -44,7 +48,7 @@ public class IngredientServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        ingredientService = new IngredientServiceImpl(recipeRepository, unitOfMeasureRepository, ingredientCommandToIngredient, ingredientToIngredientCommand);
+        ingredientService = new IngredientServiceImpl(recipeRepository, unitOfMeasureRepository, ingredientCommandToIngredient, ingredientToIngredientCommand, entityManager);
     }
 
     @Test
